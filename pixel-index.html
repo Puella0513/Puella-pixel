@@ -1,0 +1,1342 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="creative-medium" content="other" />
+<title>田文江 — 摄影师个人作品集</title>
+<link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;600&display=swap" />
+<style>
+  /* ========== 设计令牌 — 低饱和蓝色系 ========== */
+  :root {
+    --bg: #F4F6F9;          /* 浅灰蓝背景 — 冷静干净 */
+    --bg-soft: #E8ECF2;     /* 次级背景 — 雾霾蓝灰 */
+    --ink: #2B3442;         /* 主文字 — 深藏青灰 */
+    --ink-soft: #586474;    /* 次级文字 — 灰蓝 */
+    --muted: #8793A4;       /* 辅助文字 — 中灰蓝 */
+    --line: #D9DEE6;        /* 分隔线 — 浅灰蓝 */
+    --primary: #5A7B9C;     /* 主色 — 莫兰迪雾霾蓝 */
+    --primary-deep: #476584; /* 主色加深 */
+    --primary-light: #7A98B6; /* 主色浅化 */
+    --accent: #6B8A7A;      /* 点缀色 — 低饱和灰绿，冷调协调 */
+    --dust: #A6B4C4;        /* 点缀色 — 尘蓝色 */
+    --card: #FFFFFF;
+    --shadow-sm: 0 1px 3px rgba(43,52,66,0.06), 0 2px 8px rgba(43,52,66,0.04);
+    --shadow-md: 0 4px 16px rgba(43,52,66,0.08), 0 8px 32px rgba(43,52,66,0.06);
+    --shadow-lg: 0 12px 48px rgba(43,52,66,0.15);
+    --radius: 4px;
+    --radius-lg: 8px;
+    --max-w: 1280px;
+    --nav-h: 72px;
+    --font-serif: "Noto Serif SC", "Songti SC", "STSong", serif;
+    --font-sans: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+  }
+
+  /* ========== 基础重置 ========== */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font-sans);
+    color: var(--ink);
+    background: var(--bg);
+    line-height: 1.7;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+
+  /* ========== 顶部导航 ========== */
+  .navbar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: var(--nav-h);
+    background: rgba(244,246,249,0.85);
+    backdrop-filter: saturate(180%) blur(14px);
+    -webkit-backdrop-filter: saturate(180%) blur(14px);
+    border-bottom: 1px solid var(--line);
+    z-index: 100;
+    transition: box-shadow 0.3s ease;
+  }
+  .navbar.scrolled { box-shadow: var(--shadow-sm); }
+  .nav-inner {
+    max-width: var(--max-w);
+    height: 100%;
+    margin: 0 auto;
+    padding: 0 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-brand {
+    font-family: var(--font-serif);
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: var(--ink);
+  }
+  .nav-brand span { color: var(--primary); }
+  .nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 36px;
+    list-style: none;
+  }
+  .nav-item {
+    position: relative;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink-soft);
+    padding: 8px 0;
+    transition: color 0.2s;
+    cursor: pointer;
+  }
+  .nav-item:hover, .nav-item.active { color: var(--primary); }
+  .nav-item::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--primary);
+    transition: width 0.3s ease;
+  }
+  .nav-item:hover::after, .nav-item.active::after { width: 100%; }
+
+  /* 下拉菜单 */
+  .nav-item.has-dropdown:hover > .dropdown,
+  .nav-item.has-dropdown:focus-within > .dropdown {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  .dropdown {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, 8px);
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 8px 0;
+    min-width: 180px;
+    box-shadow: var(--shadow-md);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.25s ease;
+  }
+  .dropdown::before {
+    content: '';
+    position: absolute;
+    top: -6px;
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+    width: 10px; height: 10px;
+    background: #fff;
+    border-top: 1px solid var(--line);
+    border-left: 1px solid var(--line);
+  }
+  .dropdown a {
+    display: block;
+    padding: 10px 20px;
+    font-size: 14px;
+    color: var(--ink-soft);
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+  .dropdown a:hover {
+    color: var(--primary);
+    background: var(--bg);
+  }
+
+  /* 移动端菜单按钮 */
+  .nav-toggle { display: none; }
+
+  /* ========== 主内容 ========== */
+  main { padding-top: var(--nav-h); }
+  section { padding: 96px 32px; max-width: var(--max-w); margin: 0 auto; scroll-margin-top: var(--nav-h); }
+  .section-header {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+  .section-label {
+    display: inline-block;
+    font-size: 12px;
+    letter-spacing: 0.25em;
+    color: var(--primary);
+    font-weight: 500;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .section-title {
+    font-family: var(--font-serif);
+    font-size: 36px;
+    font-weight: 600;
+    color: var(--ink);
+    letter-spacing: 0.04em;
+  }
+  .section-divider {
+    width: 48px;
+    height: 2px;
+    background: var(--dust);
+    margin: 20px auto 0;
+  }
+
+  /* ========== Hero / 个人简介 Hero ========== */
+  .hero {
+    padding: 120px 32px 96px;
+    max-width: var(--max-w);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .hero-text h1 {
+    font-family: var(--font-serif);
+    font-size: 52px;
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--ink);
+    letter-spacing: 0.05em;
+    margin-bottom: 20px;
+  }
+  .hero-text h1 em {
+    font-style: normal;
+    color: var(--primary);
+  }
+  .hero-subtitle {
+    font-size: 16px;
+    color: var(--ink-soft);
+    margin-bottom: 32px;
+    line-height: 1.8;
+    max-width: 420px;
+  }
+  .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 24px;
+    font-size: 14px;
+    color: var(--muted);
+    border-top: 1px solid var(--line);
+    padding-top: 20px;
+  }
+  .hero-meta span { display: flex; align-items: center; gap: 6px; }
+  .hero-meta .dot { width: 3px; height: 3px; border-radius: 50%; background: var(--dust); }
+  .hero-image {
+    position: relative;
+    aspect-ratio: 4/5;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--bg-soft);
+    box-shadow: var(--shadow-lg);
+  }
+  .hero-image::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(90,123,156,0.1), rgba(107,138,122,0.08));
+    pointer-events: none;
+  }
+  .hero-image img { width: 100%; height: 100%; object-fit: cover; }
+  .hero-image .frame-deco {
+    position: absolute;
+    top: 16px; left: 16px; right: 16px; bottom: 16px;
+    border: 1px solid rgba(255,255,255,0.4);
+    pointer-events: none;
+  }
+
+  /* ========== 个人简介 / 简历 ========== */
+  .resume-section { background: var(--bg-soft); }
+  .resume-wrap {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: 56px 64px;
+    box-shadow: var(--shadow-sm);
+  }
+  .resume-header {
+    text-align: center;
+    padding-bottom: 32px;
+    margin-bottom: 32px;
+    border-bottom: 1px solid var(--line);
+  }
+  .resume-name {
+    font-family: var(--font-serif);
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: 0.08em;
+    margin-bottom: 12px;
+  }
+  .resume-contact {
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 2;
+  }
+  .resume-block { margin-bottom: 36px; }
+  .resume-block:last-child { margin-bottom: 0; }
+  .resume-block-title {
+    font-family: var(--font-serif);
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--primary-deep);
+    letter-spacing: 0.06em;
+    margin-bottom: 20px;
+    padding-left: 16px;
+    border-left: 3px solid var(--primary);
+  }
+  .resume-block-content p {
+    font-size: 15px;
+    line-height: 1.85;
+    color: var(--ink-soft);
+    margin-bottom: 12px;
+  }
+  .resume-block-content p:last-child { margin-bottom: 0; }
+  .resume-block-content strong {
+    color: var(--ink);
+    font-weight: 500;
+  }
+  .resume-job {
+    margin-bottom: 24px;
+    padding-left: 20px;
+    border-left: 1px solid var(--line);
+  }
+  .resume-job:last-child { margin-bottom: 0; }
+  .resume-job-head {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+  }
+  .resume-job-head .time { color: var(--primary); font-weight: 500; }
+  .resume-job-head .company { color: var(--ink); }
+  .resume-job-head .role { color: var(--primary); }
+  .resume-job p {
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.8;
+    margin-bottom: 6px;
+  }
+  .resume-cert-list {
+    list-style: none;
+    font-size: 15px;
+    color: var(--ink-soft);
+    line-height: 2;
+  }
+  .resume-cert-list li::before {
+    content: '◆ ';
+    color: var(--dust);
+    font-size: 10px;
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+
+  /* ========== 图片作品 ========== */
+  .gallery-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 48px;
+    flex-wrap: wrap;
+  }
+  .tab-btn {
+    padding: 10px 28px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink-soft);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--card);
+    transition: all 0.25s ease;
+    letter-spacing: 0.05em;
+  }
+  .tab-btn:hover {
+    color: var(--primary);
+    border-color: var(--primary);
+  }
+  .tab-btn.active {
+    color: #fff;
+    background: var(--primary);
+    border-color: var(--primary);
+  }
+  .tab-btn .count {
+    font-size: 12px;
+    opacity: 0.6;
+    margin-left: 4px;
+  }
+
+  .gallery-grid {
+    display: none;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+  .gallery-grid.active { display: grid; }
+  .gallery-item {
+    position: relative;
+    aspect-ratio: 4/3;
+    border-radius: var(--radius);
+    overflow: hidden;
+    cursor: zoom-in;
+    background: var(--bg-soft);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s ease;
+  }
+  .gallery-item:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+  }
+  .gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .gallery-item:hover img { transform: scale(1.06); }
+  .gallery-item .item-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(43,52,66,0.55) 0%, transparent 55%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    display: flex;
+    align-items: flex-end;
+    padding: 14px 16px;
+  }
+  .gallery-item:hover .item-overlay { opacity: 1; }
+  .gallery-item .item-name {
+    font-size: 12px;
+    color: rgba(255,255,255,0.9);
+    letter-spacing: 0.03em;
+    line-height: 1.4;
+    word-break: break-all;
+  }
+
+  /* ========== 灯箱 ========== */
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(27,35,48,0.92);
+    z-index: 1000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .lightbox.show { display: flex; opacity: 1; }
+  .lightbox-inner {
+    position: relative;
+    max-width: 90vw;
+    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+  .lightbox-img-wrap {
+    max-width: 90vw;
+    max-height: 75vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .lightbox img {
+    max-width: 100%;
+    max-height: 75vh;
+    object-fit: contain;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+  }
+  .lightbox-caption {
+    color: rgba(255,255,255,0.7);
+    font-size: 13px;
+    letter-spacing: 0.05em;
+  }
+  .lightbox-close, .lightbox-prev, .lightbox-next {
+    position: absolute;
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    transition: background 0.2s;
+    backdrop-filter: blur(6px);
+  }
+  .lightbox-close:hover, .lightbox-prev:hover, .lightbox-next:hover {
+    background: rgba(255,255,255,0.2);
+  }
+  .lightbox-close { top: -60px; right: 0; }
+  .lightbox-prev {
+    left: -80px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .lightbox-next {
+    right: -80px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  /* ========== 视频作品 ========== */
+  .video-section { background: var(--bg-soft); }
+  .video-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+  .video-card {
+    background: var(--card);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--line);
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-sm);
+  }
+  .video-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+  }
+  .video-card video {
+    width: 100%;
+    aspect-ratio: 16/9;
+    background: #000;
+    display: block;
+  }
+  .video-card-title {
+    padding: 16px 20px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink);
+    letter-spacing: 0.04em;
+    border-top: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .video-card-title::before {
+    content: '';
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--primary);
+  }
+  .video-card-title .title-text {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .video-expand-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-soft);
+    color: var(--ink-soft);
+    font-size: 15px;
+    transition: all 0.2s;
+    flex-shrink: 0;
+  }
+  .video-expand-btn:hover {
+    background: var(--primary);
+    color: #fff;
+  }
+
+  /* 视频播放器容器 */
+  .video-player-wrap {
+    position: relative;
+    background: #000;
+  }
+  .video-player-wrap video {
+    width: 100%;
+    aspect-ratio: 16/9;
+    display: block;
+  }
+
+  /* ========== 视频灯箱 ========== */
+  .video-lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.88);
+    z-index: 1100;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    padding: 40px;
+  }
+  .video-lightbox.show { display: flex; opacity: 1; }
+  .video-lightbox-inner {
+    position: relative;
+    width: 100%;
+    max-width: min(90vw, 1600px);
+    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+  .video-lightbox-video-wrap {
+    width: 100%;
+    max-width: min(90vw, 1600px);
+    aspect-ratio: 16/9;
+    background: #000;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 20px 80px rgba(0,0,0,0.5);
+  }
+  .video-lightbox video {
+    width: 100%;
+    height: 100%;
+    display: block;
+    background: #000;
+  }
+  .video-lightbox-caption {
+    color: rgba(255,255,255,0.75);
+    font-size: 14px;
+    letter-spacing: 0.06em;
+    font-family: var(--font-serif);
+  }
+  .video-lightbox-close {
+    position: absolute;
+    top: -56px;
+    right: 0;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.12);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    transition: background 0.2s;
+    backdrop-filter: blur(6px);
+  }
+  .video-lightbox-close:hover {
+    background: rgba(255,255,255,0.22);
+  }
+  .video-lightbox-fsbtn {
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+    width: 40px;
+    height: 40px;
+    border-radius: 6px;
+    background: rgba(0,0,0,0.5);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    transition: background 0.2s;
+    opacity: 0;
+    backdrop-filter: blur(4px);
+  }
+  .video-lightbox-video-wrap:hover .video-lightbox-fsbtn {
+    opacity: 1;
+  }
+  .video-lightbox-fsbtn:hover {
+    background: rgba(0,0,0,0.7);
+  }
+
+  /* ========== 页脚 ========== */
+  footer {
+    padding: 40px 32px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+    border-top: 1px solid var(--line);
+    letter-spacing: 0.05em;
+  }
+
+  /* ========== 滚动动画 ========== */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ========== 响应式 ========== */
+  @media (max-width: 1024px) {
+    .gallery-grid { grid-template-columns: repeat(3, 1fr); }
+    .video-grid { grid-template-columns: repeat(2, 1fr); }
+    .hero { gap: 48px; }
+    .hero-text h1 { font-size: 42px; }
+  }
+  @media (max-width: 768px) {
+    section { padding: 64px 20px; }
+    .nav-inner { padding: 0 20px; }
+    .nav-menu { display: none; }
+    .nav-toggle {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: 8px;
+    }
+    .nav-toggle span {
+      width: 22px; height: 2px;
+      background: var(--ink);
+      transition: all 0.3s;
+    }
+    .hero {
+      grid-template-columns: 1fr;
+      gap: 40px;
+      padding: 80px 20px 64px;
+    }
+    .hero-text h1 { font-size: 36px; }
+    .hero-image { aspect-ratio: 3/2; }
+    .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .video-grid { grid-template-columns: 1fr; }
+    .resume-wrap { padding: 32px 24px; }
+    .section-title { font-size: 28px; }
+    .lightbox-prev { left: 8px; }
+    .lightbox-next { right: 8px; }
+    .lightbox-close { top: -56px; right: 0; }
+
+    /* 移动端菜单 */
+    .nav-menu.mobile-open {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      top: var(--nav-h);
+      left: 0; right: 0;
+      background: var(--bg);
+      border-bottom: 1px solid var(--line);
+      padding: 20px;
+      gap: 16px;
+      box-shadow: var(--shadow-md);
+    }
+    .nav-menu.mobile-open .nav-item {
+      width: 100%;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .dropdown {
+      position: static;
+      transform: none;
+      opacity: 1;
+      pointer-events: auto;
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      padding: 8px 0 0 16px;
+      min-width: 0;
+    }
+    .dropdown::before { display: none; }
+    .dropdown a { padding: 8px 0; font-size: 13px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ========== 导航 ========== -->
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="#top" class="nav-brand">田文江<span>·</span>摄影作品</a>
+    <button class="nav-toggle" id="navToggle" aria-label="菜单">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-menu" id="navMenu">
+      <li class="nav-item active" data-target="about">个人简介</li>
+      <li class="nav-item has-dropdown" data-target="gallery">
+        图片作品
+        <div class="dropdown">
+          <a href="#gallery-humanities">人文演艺活动类</a>
+          <a href="#gallery-objects">物品类</a>
+          <a href="#gallery-scenery">风光类</a>
+        </div>
+      </li>
+      <li class="nav-item" data-target="video">视频作品</li>
+    </ul>
+  </div>
+</nav>
+
+<main id="top">
+
+  <!-- ========== Hero ========== -->
+  <section class="hero reveal" id="about">
+    <div class="hero-text">
+      <h1>光影叙事<br/><em>定格瞬间</em>之美</h1>
+      <p class="hero-subtitle">
+        一名专注文旅与人文摄影的创作者，
+        用镜头记录风景、人文与器物的温度。
+      </p>
+      <div class="hero-meta">
+        <span>2年 工作经验</span>
+        <span class="dot"></span>
+        <span>摄影师</span>
+        <span class="dot"></span>
+        <span>深圳</span>
+      </div>
+    </div>
+    <div class="hero-image">
+      <img src="https://aka.doubaocdn.com/s/d3s14bPaEl" alt="摄影作品封面" />
+      <div class="frame-deco"></div>
+    </div>
+  </section>
+
+  <!-- ========== 个人简介 / 简历 ========== -->
+  <section class="resume-section" style="padding: 96px 32px;">
+    <div class="section-header reveal">
+      <span class="section-label">About</span>
+      <h2 class="section-title">个人简介</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="resume-wrap reveal">
+      <div class="resume-header">
+        <div class="resume-name">田文江</div>
+        <div class="resume-contact">
+          男 | 25岁  |  19184883724  |  tianwenjiang0513@163.com<br/>
+          2年工作经验  |  摄影师｜深圳
+        </div>
+      </div>
+
+      <div class="resume-block">
+        <h3 class="resume-block-title">个人优势</h3>
+        <div class="resume-block-content">
+          <p><strong>■ 影视与新媒体专业能力</strong></p>
+          <p>拍摄能力：具备2年影视/新媒体行业拍摄经验，熟练操作索尼、尼康等专业摄影设备及无人机航拍，能根据场景灵活调整，实现高质量画面获取。</p>
+          <p>后期能力：精通达芬奇、剪映、Lightroom等后期制作软件，独立完成从拍摄到成片的完整制作流程，产出内容曾被央视、中国外交部海外社媒账号及省市级文旅官方号采用。</p>
+          <p>灯光能力：具备灯光布控能力，能根据拍摄场景、角度及拍摄对象灵活调整灯光方案。</p>
+          <p>在文旅项目中主动挖掘品牌传播与产品变现的结合点，将各类资源（非遗内容、酒店房间、餐饮产品、手工艺品等）高效整合，帮助项目实现品牌宣传与商业转化的双重目标。</p>
+          <p>个人评价：工作中敢于接受新挑战，主动推动工作流程并及时反馈进度以及推进过程中的问题，在执行过程中根据现场环境灵活应对，保证质量，提升团队整体产出效率。</p>
+          <p><strong>■ 团队协作与学习能力</strong></p>
+          <p>团队能力：执行力、沟通能力突出，积极与伙伴完成前期策划，高效配合各部门同事完成内容产出。能合理协调分配工作任务，确保团队内容产出质量与时效。</p>
+          <p>学习能力：学习能力强，持续关注行业新技术、新趋势，在工作中不断提升专业能力并弥补短板，愿意接受新挑战。</p>
+        </div>
+      </div>
+
+      <div class="resume-block">
+        <h3 class="resume-block-title">工作经历</h3>
+        <div class="resume-block-content">
+          <div class="resume-job">
+            <div class="resume-job-head">
+              <span class="time">2024.07 - 至今</span>
+              <span class="company">贵州贵耀旅游开发投资有限公司</span>
+              <span class="role">摄影</span>
+            </div>
+            <p><strong>工作内容：</strong></p>
+            <p>乌镇集团文旅项目品牌宣传内容产出（视频向与图片向）。</p>
+            <p>项目酒店房间视频与图片内容拍摄产出。</p>
+            <p>餐饮部门菜品套餐图片拍摄。</p>
+            <p>项目内各类产品图拍摄。</p>
+            <p><strong>工作业绩：</strong></p>
+            <p>为央视、中国外交部官方海外社媒账号、省市级文旅官方号提供符合标准的宣传成片及素材。</p>
+            <p>高效完成品牌宣传（包括非遗类目宣传片、纪录片）、各类酒店房间、餐饮、手工艺等产品的拍摄与产出。</p>
+            <p>工作期间对品宣内容的工作流程进行优化并搭建清晰易读取的项目素材资料库。</p>
+            <p>高效与需求部门对接，并合理为同事协调分配工作任务。</p>
+          </div>
+          <div class="resume-job">
+            <div class="resume-job-head">
+              <span class="time">2023.09 - 2023.12</span>
+              <span class="company">湖州全都来了网络科技有限公司</span>
+              <span class="role">摄影实习生</span>
+            </div>
+            <p><strong>工作内容：</strong></p>
+            <p>为公司多家客户提供自媒体运营内容拍摄。</p>
+            <p>为浙江省德清市官方文旅账号拍摄各类素材。</p>
+            <p><strong>工作业绩：</strong></p>
+            <p>接触各种各样拍摄题材，涵盖酒店民宿、自然风景、人文活动、体育活动。</p>
+            <p>高效优质地完成各类题材的拍摄任务。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="resume-block">
+        <h3 class="resume-block-title">教育经历</h3>
+        <div class="resume-block-content">
+          <div class="resume-job">
+            <div class="resume-job-head">
+              <span class="time">2020 - 2024</span>
+              <span class="company">浙江理工大学</span>
+              <span class="role">本科  |  数字媒体技术</span>
+            </div>
+            <p>专业背景：主修课程涵盖影视编辑、动画制作、影视特效、纪录短片拍摄等，具备扎实的影视与新媒体专业基础。</p>
+            <p>专业能力：系统掌握影视内容创作全流程，涉及策划、拍摄、后期制作等环节。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="resume-block">
+        <h3 class="resume-block-title">资格证书</h3>
+        <div class="resume-block-content">
+          <ul class="resume-cert-list">
+            <li>大学英语六级（CET-6）    |    驾驶证 C2</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 图片作品 ========== -->
+  <section id="gallery">
+    <div class="section-header reveal">
+      <span class="section-label">Portfolio</span>
+      <h2 class="section-title">图片作品</h2>
+      <div class="section-divider"></div>
+    </div>
+
+    <div class="gallery-tabs reveal">
+      <button class="tab-btn active" data-tab="humanities">人文演艺活动类<span class="count">10</span></button>
+      <button class="tab-btn" data-tab="objects">物品类<span class="count">18</span></button>
+      <button class="tab-btn" data-tab="scenery">风光类<span class="count">47</span></button>
+    </div>
+
+    <!-- 人文演艺活动类 -->
+    <div class="gallery-grid active" id="gallery-humanities" data-category="humanities"></div>
+
+    <!-- 物品类 -->
+    <div class="gallery-grid" id="gallery-objects" data-category="objects"></div>
+
+    <!-- 风光类 -->
+    <div class="gallery-grid" id="gallery-scenery" data-category="scenery"></div>
+  </section>
+
+  <!-- ========== 视频作品 ========== -->
+  <section class="video-section" id="video" style="padding: 96px 32px;">
+    <div class="section-header reveal">
+      <span class="section-label">Video Works</span>
+      <h2 class="section-title">视频作品</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="video-grid reveal" id="videoGrid"></div>
+  </section>
+
+</main>
+
+<footer>
+  © 田文江 摄影作品集 · All rights reserved
+</footer>
+
+<!-- ========== 视频灯箱 ========== -->
+<div class="video-lightbox" id="videoLightbox">
+  <div class="video-lightbox-inner">
+    <button class="video-lightbox-close" id="vlbClose" aria-label="关闭">✕</button>
+    <div class="video-lightbox-video-wrap">
+      <video id="vlbVideo" controls preload="metadata" playsinline></video>
+      <button class="video-lightbox-fsbtn" id="vlbFsBtn" aria-label="浏览器全屏">⛶</button>
+    </div>
+    <div class="video-lightbox-caption" id="vlbCaption"></div>
+  </div>
+</div>
+
+<!-- ========== 图片灯箱 ========== -->
+<div class="lightbox" id="lightbox">
+  <div class="lightbox-inner">
+    <button class="lightbox-close" id="lbClose" aria-label="关闭">✕</button>
+    <button class="lightbox-prev" id="lbPrev" aria-label="上一张">‹</button>
+    <button class="lightbox-next" id="lbNext" aria-label="下一张">›</button>
+    <div class="lightbox-img-wrap">
+      <img id="lbImg" src="" alt="" />
+    </div>
+    <div class="lightbox-caption" id="lbCaption"></div>
+  </div>
+</div>
+
+<script>
+  // ========== 数据 ==========
+  const photoData = {
+    humanities: [
+      { name: '1 (3 - 5).jpg', src: 'https://aka.doubaocdn.com/s/d3s14bPaEl' },
+      { name: '1 (4 - 5).jpg', src: 'https://aka.doubaocdn.com/s/kpmQqnxyT5' },
+      { name: '2-11.jpg', src: 'https://aka.doubaocdn.com/s/KpIwYJvmQT' },
+      { name: '2026-07-13 132425.jpg', src: 'https://aka.doubaocdn.com/s/jkxdkcPdcR' },
+      { name: '2026-07-13 132448.jpg', src: 'https://aka.doubaocdn.com/s/KKZohmOLYX' },
+      { name: '2026-07-13 132629.jpg', src: 'https://aka.doubaocdn.com/s/ZAhDOrFEYG' },
+      { name: '2026-07-13 132654.jpg', src: 'https://aka.doubaocdn.com/s/k0picIs0Ou' },
+      { name: '2026-07-13 132752.jpg', src: 'https://aka.doubaocdn.com/s/opcwVAXEnG' },
+      { name: 'DSC09972.jpg', src: 'https://aka.doubaocdn.com/s/tSXVARWC1o' },
+      { name: 'DSC09982.jpg', src: 'https://aka.doubaocdn.com/s/NP3GkK7AMz' },
+    ],
+    objects: [
+      { name: '04-29.jpg', src: 'https://aka.doubaocdn.com/s/U6KRcq4A2i' },
+      { name: '04-33.jpg', src: 'https://aka.doubaocdn.com/s/YfwNgLE9jn' },
+      { name: '04-35.jpg', src: 'https://aka.doubaocdn.com/s/PF3l2YlBAs' },
+      { name: '04-37.jpg', src: 'https://aka.doubaocdn.com/s/DsvXGj9GV4' },
+      { name: '04-50.jpg', src: 'https://aka.doubaocdn.com/s/SwrHBUYgsC' },
+      { name: '1 (1 - 3).jpg', src: 'https://aka.doubaocdn.com/s/SaVfUOdu8s' },
+      { name: '1 (2 - 3).jpg', src: 'https://aka.doubaocdn.com/s/jQJQPadQcB' },
+      { name: '1 (3 - 3).jpg', src: 'https://aka.doubaocdn.com/s/KcapUUtFUZ' },
+      { name: '1-1-2.jpg', src: 'https://aka.doubaocdn.com/s/yEnUHyF800' },
+      { name: '1-1.jpg', src: 'https://aka.doubaocdn.com/s/NiLdDCaiPr' },
+      { name: '1-4.jpg', src: 'https://aka.doubaocdn.com/s/SiO5ZxekIF' },
+      { name: '1-7.jpg', src: 'https://aka.doubaocdn.com/s/b8Ioj8TSvB' },
+      { name: '1-8.jpg', src: 'https://aka.doubaocdn.com/s/XD6ahqhToG' },
+      { name: '1-9.jpg', src: 'https://aka.doubaocdn.com/s/6AUZ2zVRQ6' },
+      { name: '2-9.jpg', src: 'https://aka.doubaocdn.com/s/j2fE6wBfP7' },
+      { name: '2025-10-09 154435.jpg', src: 'https://aka.doubaocdn.com/s/Xrv0vAjUAd' },
+      { name: '2025-10-09 154619.jpg', src: 'https://aka.doubaocdn.com/s/SfDeVIprJw' },
+      { name: '2025-12-25 125056.jpg', src: 'https://aka.doubaocdn.com/s/b1bvWAzuAE' },
+    ],
+    scenery: [
+      { name: '03-2.jpg', src: 'https://aka.doubaocdn.com/s/KyVrVUUkWy' },
+      { name: '03-4.jpg', src: 'https://aka.doubaocdn.com/s/m3IKIAPEEB' },
+      { name: '1-8.jpg', src: 'https://aka.doubaocdn.com/s/1LBzLKEjFt' },
+      { name: '2 (1 - 1).jpg', src: 'https://aka.doubaocdn.com/s/fhIlWSDs7k' },
+      { name: '2-15.jpg', src: 'https://aka.doubaocdn.com/s/fV2W641cMx' },
+      { name: '2-20.jpg', src: 'https://aka.doubaocdn.com/s/ZEBEThUjlk' },
+      { name: '2-4.jpg', src: 'https://aka.doubaocdn.com/s/cFcyQqVHFG' },
+      { name: '2.jpg', src: 'https://aka.doubaocdn.com/s/6HvRx2L8Tu' },
+      { name: '2026-06-22 124110.jpg', src: 'https://aka.doubaocdn.com/s/zxmZ8eRHrJ' },
+      { name: '2026-06-22 125212.jpg', src: 'https://aka.doubaocdn.com/s/VLrGIuTaOb' },
+      { name: '2026-06-24 155132.jpg', src: 'https://aka.doubaocdn.com/s/Uk1ABS4sUi' },
+      { name: '2026-06-24 155134.jpg', src: 'https://aka.doubaocdn.com/s/a648evjFEp' },
+      { name: '2026-06-24 155156.jpg', src: 'https://aka.doubaocdn.com/s/LVKp2tcpM3' },
+      { name: '2026-06-24 155158.jpg', src: 'https://aka.doubaocdn.com/s/TSnexjz2c8' },
+      { name: '2026-06-24 155219.jpg', src: 'https://aka.doubaocdn.com/s/pCS7OoVn1u' },
+      { name: '2026-06-24 155222.jpg', src: 'https://aka.doubaocdn.com/s/I4gqbrhSaJ' },
+      { name: '2026-06-24 155240.jpg', src: 'https://aka.doubaocdn.com/s/SkQVNxSBPT' },
+      { name: '2026-06-24 155243.jpg', src: 'https://aka.doubaocdn.com/s/IAlFpzdH9U' },
+      { name: '2026-06-24 155333.jpg', src: 'https://aka.doubaocdn.com/s/9XM1b4Ktmk' },
+      { name: '2026-06-24 155530.jpg', src: 'https://aka.doubaocdn.com/s/JuA1BnwyCb' },
+      { name: '2026-06-24 225043.jpg', src: 'https://aka.doubaocdn.com/s/QMgTCjVVuy' },
+      { name: '2026-06-24 225045.jpg', src: 'https://aka.doubaocdn.com/s/nDvuomixpn' },
+      { name: '2026-06-24 225119.jpg', src: 'https://aka.doubaocdn.com/s/0L7RubkWh9' },
+      { name: '2026-06-24 225229.jpg', src: 'https://aka.doubaocdn.com/s/wP50jcBvnX' },
+      { name: '2026-06-24 225231.jpg', src: 'https://aka.doubaocdn.com/s/ZnphNZ9IA4' },
+      { name: '2026-06-24 225303.jpg', src: 'https://aka.doubaocdn.com/s/U7DJavWVrg' },
+      { name: '2026-06-24 225320.jpg', src: 'https://aka.doubaocdn.com/s/VvWWMAqGfo' },
+      { name: '2026-06-25 142151.jpg', src: 'https://aka.doubaocdn.com/s/7fB4n4wYqa' },
+      { name: '2026-06-25 142201.jpg', src: 'https://aka.doubaocdn.com/s/gZ6hR1nfHL' },
+      { name: '2026-06-25 142229.jpg', src: 'https://aka.doubaocdn.com/s/43RBPU0dPU' },
+      { name: '2026-06-25 142238.jpg', src: 'https://aka.doubaocdn.com/s/FVVGqqNhfn' },
+      { name: '2026-06-25 142303.jpg', src: 'https://aka.doubaocdn.com/s/uDzhRpbmQf' },
+      { name: 'TWJ_6393.jpg', src: 'https://aka.doubaocdn.com/s/XBhtNcmCcQ' },
+      { name: 'TWJ_6394.jpg', src: 'https://aka.doubaocdn.com/s/1mC3shqXfr' },
+      { name: 'TWJ_6396.jpg', src: 'https://aka.doubaocdn.com/s/i1TLXWVk1O' },
+      { name: 'TWJ_6411.jpg', src: 'https://aka.doubaocdn.com/s/i4QA5ujsxy' },
+      { name: 'TWJ_6470.jpg', src: 'https://aka.doubaocdn.com/s/lMpRyVifZF' },
+      { name: 'TWJ_6600.jpg', src: 'https://aka.doubaocdn.com/s/5BMMVCwikl' },
+      { name: 'TWJ_6617.jpg', src: 'https://aka.doubaocdn.com/s/M9GSGiQlok' },
+      { name: 'TWJ_6625.jpg', src: 'https://aka.doubaocdn.com/s/3VgkyyVytJ' },
+      { name: 'TWJ_6646.jpg', src: 'https://aka.doubaocdn.com/s/RL4Ae1hNFR' },
+      { name: 'TWJ_6665.jpg', src: 'https://aka.doubaocdn.com/s/21Ei2TgnHJ' },
+      { name: 'TWJ_6738.JPG', src: 'https://aka.doubaocdn.com/s/USi3kSUtJK' },
+      { name: 'TWJ_6783.jpg', src: 'https://aka.doubaocdn.com/s/UuP4AetmJS' },
+      { name: 'TWJ_6801-已增强-降噪.jpg', src: 'https://aka.doubaocdn.com/s/4B6E5Iv8Np' },
+      { name: 'dji_fly_20250726_194416_54_1753597145206_photo.JPG', src: 'https://aka.doubaocdn.com/s/iI1N2EKZDz' },
+      { name: 'dji_fly_20250726_194624_58_1753597142656_photo.JPG', src: 'https://aka.doubaocdn.com/s/6UA0zfiZkc' },
+    ]
+  };
+
+  const videoData = [
+    { title: '侗黔白马酒店宣传', src: 'https://aka.doubaocdn.com/s/7Xv2GRL6iJ' },
+    { title: '寨龙宣传', src: 'https://aka.doubaocdn.com/s/gqs94vVV4x' },
+    { title: '彝族', src: 'https://aka.doubaocdn.com/s/PdsjU2UAM9' },
+    { title: '旅拍快剪', src: 'https://aka.doubaocdn.com/s/GwnetBSVL6' },
+    { title: '杀年猪活动', src: 'https://aka.doubaocdn.com/s/VzuqSeyeHp' },
+    { title: '氛围感短视频', src: 'https://aka.doubaocdn.com/s/DK0JiI5hl6' },
+    { title: '汽车运镜', src: 'https://aka.doubaocdn.com/s/66Vbe6niIh' },
+    { title: '游玩攻略口播01', src: 'https://aka.doubaocdn.com/s/hpjjugxXeQ' },
+    { title: '游玩攻略口播02', src: 'https://aka.doubaocdn.com/s/j00dGixCbp' },
+    { title: '演艺活动快剪', src: 'https://aka.doubaocdn.com/s/lcIHskphWN' },
+    { title: '烟花快剪', src: 'https://aka.doubaocdn.com/s/031y5eP0rN' },
+    { title: '碎片vlog快剪', src: 'https://aka.doubaocdn.com/s/vWnZxgikXH' },
+    { title: '镖师大会活动', src: 'https://aka.doubaocdn.com/s/0WfClQyrUr' },
+    { title: '非遗和合香', src: 'https://aka.doubaocdn.com/s/XBcmaqVSwS' },
+    { title: '非遗苗绣', src: 'https://aka.doubaocdn.com/s/9sUasV1fyr' },
+    { title: '音疗宣传', src: 'https://aka.doubaocdn.com/s/gVgQbsX1VJ' },
+  ];
+
+  // ========== 渲染图片 ==========
+  function renderGallery() {
+    Object.keys(photoData).forEach(cat => {
+      const grid = document.getElementById('gallery-' + cat);
+      if (!grid) return;
+      grid.innerHTML = photoData[cat].map((item, i) => `
+        <div class="gallery-item" data-category="${cat}" data-index="${i}">
+          <img src="${item.src}" alt="${item.name}" loading="lazy" />
+          <div class="item-overlay">
+            <span class="item-name">${item.name}</span>
+          </div>
+        </div>
+      `).join('');
+    });
+  }
+
+  // ========== 渲染视频 ==========
+  function renderVideos() {
+    const grid = document.getElementById('videoGrid');
+    grid.innerHTML = videoData.map((v, i) => `
+      <div class="video-card" data-video-index="${i}">
+        <div class="video-player-wrap">
+          <video src="${v.src}" controls preload="metadata" playsinline></video>
+        </div>
+        <div class="video-card-title">
+          <span class="title-text">${v.title}</span>
+          <button class="video-expand-btn" data-video-index="${i}" title="大屏播放">⛶</button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // ========== 视频灯箱 ==========
+  function initVideoLightbox() {
+    const vlb = document.getElementById('videoLightbox');
+    const vlbVideo = document.getElementById('vlbVideo');
+    const vlbCaption = document.getElementById('vlbCaption');
+    const vlbClose = document.getElementById('vlbClose');
+    const vlbFsBtn = document.getElementById('vlbFsBtn');
+
+    function openVideoLightbox(index) {
+      const video = videoData[index];
+      vlbVideo.src = video.src;
+      vlbCaption.textContent = video.title;
+      vlb.classList.add('show');
+      document.body.style.overflow = 'hidden';
+      // 尝试自动播放
+      vlbVideo.play().catch(() => {});
+    }
+
+    function closeVideoLightbox() {
+      // 如果在原生全屏中，先退出
+      if (document.fullscreenElement) {
+        document.exitFullscreen().catch(() => {});
+      }
+      vlbVideo.pause();
+      vlb.classList.remove('show');
+      vlbVideo.src = '';
+      document.body.style.overflow = '';
+    }
+
+    function toggleFullscreen() {
+      const wrap = vlbVideo.parentElement;
+      if (!document.fullscreenElement) {
+        if (wrap.requestFullscreen) {
+          wrap.requestFullscreen().catch(() => {
+            // 降级：对 video 元素本身请求全屏
+            if (vlbVideo.webkitEnterFullscreen) {
+              vlbVideo.webkitEnterFullscreen();
+            }
+          });
+        } else if (vlbVideo.webkitEnterFullscreen) {
+          vlbVideo.webkitEnterFullscreen();
+        }
+      } else {
+        document.exitFullscreen().catch(() => {});
+      }
+    }
+
+    // 点击放大按钮打开灯箱
+    document.addEventListener('click', (e) => {
+      const btn = e.target.closest('.video-expand-btn');
+      if (btn) {
+        e.preventDefault();
+        e.stopPropagation();
+        const idx = parseInt(btn.dataset.videoIndex, 10);
+        openVideoLightbox(idx);
+      }
+    });
+
+    vlbClose.addEventListener('click', closeVideoLightbox);
+    vlbFsBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleFullscreen(); });
+    vlb.addEventListener('click', (e) => {
+      if (e.target === vlb) closeVideoLightbox();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (!vlb.classList.contains('show')) return;
+      if (e.key === 'Escape') closeVideoLightbox();
+    });
+  }
+
+  // ========== Tab 切换 ==========
+  function initTabs() {
+    const tabs = document.querySelectorAll('.tab-btn');
+    const grids = document.querySelectorAll('.gallery-grid');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const target = tab.dataset.tab;
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        grids.forEach(g => g.classList.remove('active'));
+        document.getElementById('gallery-' + target).classList.add('active');
+      });
+    });
+  }
+
+  // ========== 灯箱 ==========
+  let lbCategory = null;
+  let lbIndex = 0;
+
+  function initLightbox() {
+    const lightbox = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lbImg');
+    const lbCaption = document.getElementById('lbCaption');
+    const lbClose = document.getElementById('lbClose');
+    const lbPrev = document.getElementById('lbPrev');
+    const lbNext = document.getElementById('lbNext');
+
+    function openLightbox(cat, idx) {
+      lbCategory = cat;
+      lbIndex = idx;
+      const item = photoData[cat][idx];
+      lbImg.src = item.src;
+      lbImg.alt = item.name;
+      lbCaption.textContent = item.name;
+      lightbox.classList.add('show');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+      lightbox.classList.remove('show');
+      document.body.style.overflow = '';
+    }
+    function showPrev() {
+      const arr = photoData[lbCategory];
+      lbIndex = (lbIndex - 1 + arr.length) % arr.length;
+      const item = arr[lbIndex];
+      lbImg.src = item.src;
+      lbCaption.textContent = item.name;
+    }
+    function showNext() {
+      const arr = photoData[lbCategory];
+      lbIndex = (lbIndex + 1) % arr.length;
+      const item = arr[lbIndex];
+      lbImg.src = item.src;
+      lbCaption.textContent = item.name;
+    }
+
+    document.addEventListener('click', (e) => {
+      const item = e.target.closest('.gallery-item');
+      if (item) {
+        e.preventDefault();
+        const cat = item.dataset.category;
+        const idx = parseInt(item.dataset.index, 10);
+        openLightbox(cat, idx);
+      }
+    });
+
+    lbClose.addEventListener('click', closeLightbox);
+    lbPrev.addEventListener('click', showPrev);
+    lbNext.addEventListener('click', showNext);
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) closeLightbox();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (!lightbox.classList.contains('show')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') showPrev();
+      if (e.key === 'ArrowRight') showNext();
+    });
+  }
+
+  // ========== 导航平滑滚动 ==========
+  function initNavScroll() {
+    const navItems = document.querySelectorAll('.nav-item[data-target]');
+    const sections = ['about', 'gallery', 'video'];
+
+    navItems.forEach(item => {
+      item.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = item.dataset.target;
+        const el = document.getElementById(target);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' });
+        }
+        // 移动端关闭菜单
+        document.getElementById('navMenu').classList.remove('mobile-open');
+      });
+    });
+
+    // 下拉菜单中的链接
+    document.querySelectorAll('.dropdown a').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const href = link.getAttribute('href').substring(1);
+        const el = document.getElementById(href);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' });
+          // 同时切换到对应 tab
+          if (href.startsWith('gallery-')) {
+            const cat = href.replace('gallery-', '');
+            const tab = document.querySelector(`.tab-btn[data-tab="${cat}"]`);
+            if (tab) tab.click();
+          }
+        }
+        document.getElementById('navMenu').classList.remove('mobile-open');
+      });
+    });
+
+    // 滚动时高亮导航
+    window.addEventListener('scroll', () => {
+      const navbar = document.getElementById('navbar');
+      if (window.scrollY > 40) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+
+      let current = '';
+      sections.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= 160 && rect.bottom > 160) {
+            current = id;
+          }
+        }
+      });
+      navItems.forEach(item => {
+        item.classList.toggle('active', item.dataset.target === current);
+      });
+    });
+  }
+
+  // ========== 移动端菜单 ==========
+  function initMobileMenu() {
+    const toggle = document.getElementById('navToggle');
+    const menu = document.getElementById('navMenu');
+    toggle.addEventListener('click', () => {
+      menu.classList.toggle('mobile-open');
+    });
+  }
+
+  // ========== 滚动揭示动画 ==========
+  function initReveal() {
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+
+    reveals.forEach(el => observer.observe(el));
+  }
+
+  // ========== 启动 ==========
+  document.addEventListener('DOMContentLoaded', () => {
+    renderGallery();
+    renderVideos();
+    initTabs();
+    initLightbox();
+    initVideoLightbox();
+    initNavScroll();
+    initMobileMenu();
+    initReveal();
+  });
+</script>
+
+</body>
+</html>
